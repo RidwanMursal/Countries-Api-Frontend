@@ -38,7 +38,7 @@ const Countries = ({searchTerm, region}) => {
         {queryFlag? (
           queriedCountries.map(country => <Country key={country.ccn3} country={country}/> )
         ):(
-          countries.map(country => <Country key={country.ccn3} country={country}/> )
+          countries.map(country => <Country key={country.name.common} country={country}/> )
         )}
         
     </div>
