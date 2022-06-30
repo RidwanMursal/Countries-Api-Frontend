@@ -6,15 +6,17 @@ import { specialCountries } from "../../constants"
 import Link from "next/link"
 
 const Details = ({data}) => {
+    // special case with certain countries missing crucial data
+    if (data === "") {
+        return (
+            <div className="flex h-screen items-center justify-center">
+                <h1 className="text-3xl">Coming Soon...</h1>
+            </div>
+        )
+     }
   const {flags, name, region, subregion, population, capital, languages, currencies, tld, borders} = data[0]
   //console.log("this is the data", data[0])
-  if (specialCountries.includes(data[0].name.common)) {
-      return (
-          <div className="flex h-screen items-center justify-center">
-              <h1 className="text-3xl">Coming Soon...</h1>
-          </div>
-      )
-   }
+  
     return (
     <div className="bg-very-dark-blue text-white ">
         <Header />
@@ -95,6 +97,7 @@ export const getStaticProps = async ({params: {name}}) =>  {
     .then((response) => data = response.data)
     .catch((error) => console.log(error))
 
+    if (data === undefined || specialCountries.includes(data[0].name.common)) data = ""
     return {props: {data}}
 }
 
