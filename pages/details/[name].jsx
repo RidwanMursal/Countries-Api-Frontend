@@ -13,10 +13,9 @@ const Details = ({data}) => {
                 <h1 className="text-3xl">Coming Soon...</h1>
             </div>
         )
-     }
-  const {flags, name, region, subregion, population, capital, languages, currencies, tld, borders} = data[0]
-  //console.log("this is the data", data[0])
-  
+    }
+    const {flags, name, region, subregion, population, capital, languages, currencies, tld, borders} = data[0]
+
     return (
     <div className="bg-very-dark-blue text-white ">
         <Header />
@@ -42,7 +41,7 @@ const Details = ({data}) => {
                         <p><span className="font-semibold">Population: </span>{population}</p>
                         <p><span className="font-semibold">Region: </span>{region}</p>
                         <p><span className="font-semibold">Sub Region: </span>{subregion}</p>
-                        <p><span className="font-semibold">Capital: </span>{"capital[0]"}</p>
+                        <p><span className="font-semibold">Capital: </span>{capital?  capital[0]:"No info"}</p>
                     </div>
 
                     <div className="mt-[2rem] flex flex-col gap-3 md:mt-0 lg:pr-[4rem]">
@@ -54,12 +53,9 @@ const Details = ({data}) => {
                 </div>
 
                 {/* <div className="flex flex-col gap-4">
-                    <h1 className="lg:mt-[1rem]">Border Countries</h1>
-                    <div className="flex gap-2">
-                        
-                        Comming Soon...
-                    </div>
+                    
                 </div> */}
+                
 
             </div>
 
@@ -92,12 +88,19 @@ export const getStaticPaths = async () => {
 
 
 export const getStaticProps = async ({params: {name}}) =>  {
-    let data; 
+    let data;
+    let Bnames; 
     await axios.get(`${BASE_URL}/name/${name}`)
     .then((response) => data = response.data)
     .catch((error) => console.log(error))
 
+
     if (data === undefined || specialCountries.includes(data[0].name.common)) data = ""
+    
+
+    console.log("BMAME: ", Bnames)
+    
+    
     return {props: {data}}
 }
 
