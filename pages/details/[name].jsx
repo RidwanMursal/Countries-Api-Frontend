@@ -5,7 +5,8 @@ import {BsArrowLeft} from "react-icons/bs"
 import { specialCountries } from "../../constants"
 import Link from "next/link"
 
-const Details = ({data}) => {
+const Details = ({data, borderNames}) => {
+    console.log(borderNames)
     // special case with certain countries missing crucial data
     if (data === "") {
         return (
@@ -52,9 +53,21 @@ const Details = ({data}) => {
 
                 </div>
 
-                {/* <div className="flex flex-col gap-4">
-                    
-                </div> */}
+                <div className="flex flex-col gap-4 mt-[1rem] lg:flex-row lg:items-center">
+                    <p>Border Countries: </p>
+                    <div className="flex gap-2 flex-wrap">
+                        {borderNames?.map(border => {
+                            return (
+                            <Link href={`${border}`} key={border}>
+                                <button className="px-[1.5rem] py-[0.2rem] bg-dark-blue rounded hover:opacity-[0.75]">
+                                    {border}
+                                </button>
+                            </Link>
+                            )
+                        
+                        })}
+                    </div>
+                </div>
                 
 
             </div>
@@ -89,18 +102,26 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async ({params: {name}}) =>  {
     let data;
-    let Bnames; 
+    let borderNames = []
     await axios.get(`${BASE_URL}/name/${name}`)
     .then((response) => data = response.data)
     .catch((error) => console.log(error))
 
 
     if (data === undefined || specialCountries.includes(data[0].name.common)) data = ""
+    else {
+        const {borders} = data[0]
+        for (let i = 0; i < borders.length; i++) {
+            const country = await axios.get(`${BASE_URL}/alpha/${borders[i]}`)
+            console.log("this is the name", country.data[0].name.common)
+            borderNames.push(country.data[0].name.common)
+        }
+    }
     
 
-    console.log("BMAME: ", Bnames)
+    //console.log("BMAME: ", Bnames)
     
     
-    return {props: {data}}
+    return {props: {data, borderNames }}
 }
 
