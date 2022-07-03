@@ -111,10 +111,12 @@ export const getStaticProps = async ({params: {name}}) =>  {
     if (data === undefined || specialCountries.includes(data[0].name.common)) data = ""
     else {
         const {borders} = data[0]
-        for (let i = 0; i < borders.length; i++) {
-            const country = await axios.get(`${BASE_URL}/alpha/${borders[i]}`)
-            console.log("this is the name", country.data[0].name.common)
-            borderNames.push(country.data[0].name.common)
+        if (borders !== undefined) {
+            for (let i = 0; i < borders.length; i++) {
+                const country = await axios.get(`${BASE_URL}/alpha/${borders[i]}`)
+                console.log("this is the name", country.data[0].name.common)
+                borderNames.push(country.data[0].name.common)
+            }
         }
     }
     
