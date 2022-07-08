@@ -16,8 +16,8 @@ Users should be able to:
 - Toggle the color scheme between light and dark mode *(optional)*
 
 ### Screenshot
+![home](https://i.imgur.com/BWF5oyb.png).
 
-https://i.imgur.com/BWF5oyb.png
 https://i.imgur.com/96LJuVw.png
 
 ### Links
