@@ -56,7 +56,8 @@ const Details = ({data, borderNames}) => {
                 <div className="flex flex-col gap-4 mt-[1rem] lg:flex-row lg:items-center">
                     <p>Border Countries: </p>
                     <div className="flex gap-2 flex-wrap">
-                        {borderNames?.map(border => {
+                        
+                        {borderNames.length>0? borderNames.map(border => {
                             return (
                             <Link href={`${border}`} key={border}>
                                 <button className="px-[1.5rem] py-[0.2rem] bg-dark-blue rounded hover:opacity-[0.75]">
@@ -65,7 +66,7 @@ const Details = ({data, borderNames}) => {
                             </Link>
                             )
                         
-                        })}
+                        }): <p className="text-red-500">No Bordering Countries</p>}
                     </div>
                 </div>
                 
