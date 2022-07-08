@@ -29,7 +29,7 @@ Users should be able to:
 
 ### Links
 
-- Live Site URL: (https://countries-api-frontend-nine.vercel.app/)
+- Live Site URL: https://countries-api-frontend-nine.vercel.app/
 
 ### Built with
 
